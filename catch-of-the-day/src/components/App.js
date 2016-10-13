@@ -8,7 +8,10 @@ import Inventory from './Inventory';
 import Fish from './Fish';
 
 // Sample Data
-import sampleFishes from '../sample-fishes.js';
+import sampleFishes from '../sample-fishes';
+
+// Firebase Connection
+import base from '../base';
 
 class App extends React.Component {
 
@@ -24,6 +27,20 @@ class App extends React.Component {
 			fishes: {},
 			order: {}
 		};
+	}
+
+	componentWillMount() {
+		this.ref = base.syncState(
+			`${ this.props.params.storeId }/fishes`, 
+			{
+				context: this,
+				state: 'fishes'
+			}
+		);
+	}
+
+	componentWillUnmount() {
+		base.removeBinding( this.ref );
 	}
 
 	addFish(fish) {

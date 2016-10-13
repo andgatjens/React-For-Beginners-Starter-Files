@@ -15,8 +15,6 @@ class Order extends React.Component {
 	renderOrder(key) {
 		const fish  = this.props.fishes[key],
 					count = this.props.order[key];
-
-		console.log(fish);
 		
 		if( !fish || fish.status === 'unavailable' ) {
 			return <li key={ key }>Sorry, { fish ? fish.name : 'fish' } is no longer available!</li>;
